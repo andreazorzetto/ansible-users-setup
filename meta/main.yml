@@ -1,0 +1,19 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: andreazorzetto
+  description: apt users setup
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.9
+  platforms:
+    - name: Ubuntu
+      versions:
+      - all
+  galaxy_tags:
+    - sudo
+    - system
+    - Linux
+    - authentication
+    - users
+    - ssh

@@ -1,0 +1,17 @@
+---
+users:
+  - name: user1
+    description: User1
+    password: $6$F2gxqZJi$3q9lsRPYgyPZO4J4wJnz6MP37U1Y5Rh1IEips4vKmnR7
+    key:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1DB5VISZ6h1IEips4vKmnR7
+    sudo: yes
+    deleted: no
+
+  - name: user2
+    description: User1
+    password: $6$F2gxqZJi$3q9lsRPYgyPZO4J4wJnz6MP37U1Y5Rh1IEips4vKmnR7
+    key:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1DB5VISZ6h1IEips4vKmnR7
+    sudo: yes
+    deleted: no

@@ -1,0 +1,22 @@
+---
+
+- hosts: vagrant
+  remote_user: vagrant
+  become: true
+
+  roles:
+
+  - role: ansible-users-setup
+    tags: ['usersfile']
+    ansible_users_file: my-team.yml
+
+  - role: ansible-users-setup
+    tags: ['uservar']
+    users:
+      - name: testuser
+        description: testuser
+        password: $6$F2gxqZJi$3q9lsRPYgyPZO4J4wJnz6MP37U1Y5Rh1IEips4vK
+        key:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1DB5VISZ6JokIpyKlCUCONCpaC9697YcJCIJsuMTUQM5IFKeHsOPuCMML
+        sudo: yes
+        deleted: no

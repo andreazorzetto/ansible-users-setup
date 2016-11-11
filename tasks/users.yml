@@ -1,0 +1,81 @@
+---
+##################################################
+# USERS
+- name: Create users
+  user: name={{ item.name }} comment="{{ item.description }}" shell=/bin/bash createhome=yes
+  with_items:
+    - "{{ users }}"
+  when: item.description is defined
+
+- name: Create users
+  user: name={{ item.name }} shell=/bin/bash createhome=yes
+  with_items:
+    - "{{ users }}"
+  when: item.description is undefined
+##################################################
+
+##################################################
+# USERS
+- name: Changing user password
+  user: name={{ item.name }} password={{ item.password }}
+  with_items:
+    - "{{ users }}"
+  when: item.password is defined
+##################################################
+
+##################################################
+# GROUPS
+- name: Create additional groups
+  group: name={{ item.1 }} state=present
+  with_subelements:
+    - "{{ users }}"
+    - additional_groups
+    - skip_missing: true
+
+- name: Add additional groups to users
+  user: name={{ item.name }} groups={{ item.additional_groups|join(',') }}
+  with_items:
+    - "{{ users }}"
+  when: item.additional_groups is defined
+##################################################
+
+##################################################
+# SSH KEYS
+- name: Install ssh keys
+  authorized_key: user={{ item.0.name }} key={{ item.1 }}
+  with_subelements:
+    - "{{ users }}"
+    - key
+    - skip_missing: true
+##################################################
+
+##################################################
+# SUDO
+- name: Add sudo users permissions
+  lineinfile: dest=/etc/sudoers backup=yes state=present insertafter=EOF line="{{ item.name }} ALL=(ALL)NOPASSWD:ALL" validate='visudo -cf %s'
+  with_items:
+    - "{{ users }}"
+  when: item.sudo
+
+- name: Add custom sudo permissions
+  lineinfile: dest=/etc/sudoers backup=yes state=present insertafter=EOF line="{{ item.0.name }} {{ item.1 }}" validate='visudo -cf %s'
+  with_subelements:
+    - "{{ users }}"
+    - custom_sudo
+    - skip_missing: true
+##################################################
+
+##################################################
+# DELETING
+- name: delete user
+  user: name={{ item.name }} state=absent remove=yes
+  with_items:
+    - "{{ users }}"
+  when: item.deleted
+
+- name: Remove sudo permissions for deleted users
+  lineinfile: dest=/etc/sudoers state=absent regexp="{{ item.name }}"
+  with_items:
+    - "{{ users }}"
+  when: item.deleted
+##################################################

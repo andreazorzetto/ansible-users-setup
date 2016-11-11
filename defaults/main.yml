@@ -1,0 +1,6 @@
+---
+users:
+  - name: dummy
+    description: dummy
+    sudo: no
+    deleted: yes

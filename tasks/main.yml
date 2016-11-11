@@ -1,0 +1,6 @@
+---
+- include_vars: "{{ ansible_users_file }}"
+  when: ansible_users_file is defined
+
+- include: users.yml
+  when: users is defined
