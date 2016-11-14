@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   author: andreazorzetto
-  description: apt users setup
+  description: Linux users setup: password, groups, sudo permissions, ssh keys and more
   license: "license (BSD, MIT)"
   min_ansible_version: 1.9
   platforms:
